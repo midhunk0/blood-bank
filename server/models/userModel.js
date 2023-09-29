@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: [true, "role is required"],
-        enum: ["admin", "organization", "donar", "hospital"]
+        enum: ["admin", "organisation", "donar", "hospital"]
     },
     name: {
         type: String,
@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
             return false;
         }
     },
-    organization: {
+    organisation: {
         type: String,
         required: function(){
-            if(this.role === "organization"){
+            if(this.role === "organisation"){
                 return true;
             }
             return false;

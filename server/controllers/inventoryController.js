@@ -1,4 +1,3 @@
-// @ts-nocheck
 const inventoryModel = require("../models/inventoryModel");
 const userModel = require("../models/userModel")
 
@@ -35,4 +34,28 @@ const createInventoryController = async(req, res) => {
     }
 }
 
-module.exports = { createInventoryController }
+//get all blood records
+const getInventoryController = async(req, res) => {
+    try{
+        const inventory = await inventoryModel
+        .find({organisation: req.body.userId})
+        .populate("donar")
+        .populate("hospital")
+        .sort({createdAt: -1});
+        return res.status(200).send({
+            success: true,
+            message: "get all records successfully",
+            inventory
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: "error in get all inventory",
+            error
+        })
+    }
+}
+
+module.exports = { createInventoryController, getInventoryController }
