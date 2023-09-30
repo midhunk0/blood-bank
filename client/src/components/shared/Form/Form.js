@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import InputType from "./InputType";
 import {Link} from "react-router-dom";
+import { handleLogin, handleRegister } from "../../../services/authService";
 
 const Form = ({formType, submitBtn, formTitle}) => {
     const [email, setEmail] = useState("");
@@ -16,7 +17,20 @@ const Form = ({formType, submitBtn, formTitle}) => {
 
     return (
         <div>
-            <form>
+            <form onSubmit={(e) => {
+                if(formType === "login") return handleLogin(e, email, password, role)
+                else if(formType === "register") return handleRegister(
+                    e, 
+                    name, 
+                    password, 
+                    role, 
+                    organisation, 
+                    hospital, 
+                    website, 
+                    address, 
+                    phone
+                )
+            }}>
                 <h1 className="text-center">{formTitle}</h1>
                 <hr/>
                 <div className="d-flex mb-3">
@@ -180,7 +194,7 @@ const Form = ({formType, submitBtn, formTitle}) => {
                 
                 <div className='d-flex flex-row justify-content-between'>
                     {formType === "login" 
-                        ? <p>Not registered yet? <Link to="/register"> Registe </Link></p> 
+                        ? <p>Not registered yet? <Link to="/register"> Register </Link></p> 
                         : <p>Already registered <Link to="/login"> Login </Link></p>
                     }
                     <button className="btn btn-primary" type="submit">
