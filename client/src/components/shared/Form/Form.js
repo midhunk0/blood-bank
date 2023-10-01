@@ -1,14 +1,14 @@
 /* eslint-disable default-case */
 import React, { useState } from "react";
 import InputType from "./InputType";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { handleLogin, handleRegister } from "../../../services/authService";
 
-const Form = ({formType, submitBtn, formTitle}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const Form = ({ formType, submitBtn, formTitle }) => {
     const [role, setRole] = useState("donar");
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [organisation, setOrganisation] = useState("");
     const [hospital, setHospital] = useState("");
     const [website, setWebsite] = useState("");
@@ -18,12 +18,13 @@ const Form = ({formType, submitBtn, formTitle}) => {
     return (
         <div>
             <form onSubmit={(e) => {
-                if(formType === "login") return handleLogin(e, email, password, role)
+                if(formType === "login") return handleLogin(e, role,  email, password)
                 else if(formType === "register") return handleRegister(
                     e, 
-                    name, 
-                    password, 
                     role, 
+                    name, 
+                    email,
+                    password, 
                     organisation, 
                     hospital, 
                     website, 

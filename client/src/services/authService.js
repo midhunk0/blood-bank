@@ -1,40 +1,49 @@
-export const handleLogin = (e, email, password, role) => {
+// @ts-nocheck
+import { userLogin, userRegister } from "../redux/features/auth/authActions"
+import store from "../redux/store"
+
+export const handleLogin = (e, role, email, password) => {
     e.preventDefault()
     try{
         if(!role || !email || !password){
             return alert("please provide all fields")
         }
-        console.log("login", e, email, password, role)
+        store.dispatch(userLogin({ role, email, password }))
     }
     catch(error){
         console.log(error)
     }
 }
 
-export const handleRegister = (                    e, 
-    name, 
-    password, 
+export const handleRegister = ( 
+    e, 
     role, 
+    name, 
+    email,
+    password, 
     organisation, 
     hospital, 
     website, 
     address, 
-    phone) => {
-        e.preventDefault();
-        try{
-            console.log(
-                "register",     
-                name, 
-                password, 
+    phone
+) => {
+    e.preventDefault()
+    try{
+        store.dispatch(
+            userRegister({
                 role, 
+                name, 
+                email,
+                password, 
                 organisation, 
                 hospital, 
                 website, 
                 address, 
-                phone
-            )
-        }
-        catch(error){
-            console.log(error)
-        }
+                phone,
+            })
+        )
+    }
+    catch(error){
+        console.log(error)
+    }
 }
